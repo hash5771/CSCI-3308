@@ -1,0 +1,21 @@
+hassa@DESKTOP-U7DMQ19 MINGW64 ~/lab1-initial-setup-hash5771 (main)
+$ git add .
+warning: LF will be replaced by CRLF in test.txt.
+The file will have its original line endings in your working directory
+
+hassa@DESKTOP-U7DMQ19 MINGW64 ~/lab1-initial-setup-hash5771 (main)
+$ git commit -m "Testing"
+[main d6b4f86] Testing
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+hassa@DESKTOP-U7DMQ19 MINGW64 ~/lab1-initial-setup-hash5771 (main)
+$ git push
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 253 bytes | 253.00 KiB/s, done.
+Total 3 (delta 1), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To https://github.com/CU-CSCI-3308-Fall-2021/lab1-initial-setup-hash5771
+   f4919e7..d6b4f86  main -> main

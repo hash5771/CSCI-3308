@@ -1,0 +1,106 @@
+hassa@DESKTOP-U7DMQ19 MINGW64 ~
+$ docker run hello-world
+Unable to find image 'hello-world:latest' locally
+latest: Pulling from library/hello-world
+b8dfde127a29: Pulling fs layer
+b8dfde127a29: Download complete
+b8dfde127a29: Pull complete
+Digest: sha256:7d91b69e04a9029b99f3585aaaccae2baa80bcf318f4a5d2165a9898cd2dc0a1
+Status: Downloaded newer image for hello-world:latest
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+    (amd64)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker ID:
+ https://hub.docker.com/
+
+For more examples and ideas, visit:
+ https://docs.docker.com/get-started/
+
+hassa@DESKTOP-U7DMQ19 MINGW64 ~
+$ docker ps -a
+CONTAINER ID   IMAGE                    COMMAND                  CREATED              STATUS                      PORTS                               NAMES
+c21dbc0a407a   hello-world              "/hello"                 26 seconds ago       Exited (0) 25 seconds ago                                       peaceful_morse
+4f4ac2eb657e   docker/getting-started   "/docker-entrypoint.…"   About a minute ago   Up About a minute           0.0.0.0:80->80/tcp, :::80->80/tcp   competent_sutherland
+
+hassa@DESKTOP-U7DMQ19 MINGW64 ~
+$ docker rm competent_sutherland
+Error response from daemon: You cannot remove a running container 4f4ac2eb657e77a83375b2794359124f1a703774b80f77cdc57cff82c15f1981. Stop the container before attempting removal or force remove
+
+hassa@DESKTOP-U7DMQ19 MINGW64 ~
+$ docker rm peaceful_morse
+peaceful_morse
+
+hassa@DESKTOP-U7DMQ19 MINGW64 ~
+$ docker ps -a
+CONTAINER ID   IMAGE                    COMMAND                  CREATED         STATUS         PORTS                               NAMES
+4f4ac2eb657e   docker/getting-started   "/docker-entrypoint.…"   3 minutes ago   Up 3 minutes   0.0.0.0:80->80/tcp, :::80->80/tcp   competent_sutherland
+
+hassa@DESKTOP-U7DMQ19 MINGW64 ~
+$ docker run --rm hello-world
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+    (amd64)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker ID:
+ https://hub.docker.com/
+
+For more examples and ideas, visit:
+ https://docs.docker.com/get-started/
+
+
+hassa@DESKTOP-U7DMQ19 MINGW64 ~
+$ docker run -it ubuntu bash
+the input device is not a TTY.  If you are using mintty, try prefixing the command with 'winpty'
+
+hassa@DESKTOP-U7DMQ19 MINGW64 ~
+$ winpty docker run -it ubuntu bash
+Unable to find image 'ubuntu:latest' locally
+latest: Pulling from library/ubuntu
+35807b77a593: Pull complete
+Digest: sha256:9d6a8699fb5c9c39cf08a0871bd6219f0400981c570894cd8cbea30d3424a31f
+Status: Downloaded newer image for ubuntu:latest
+root@d349eb3faff6:/# exit
+exit
+
+hassa@DESKTOP-U7DMQ19 MINGW64 ~
+$ winpty docker run -dt ubuntu bash
+dd0b8c210635a9c2afd4a0eb55166ffe164beb1a737325685747a7fbf8c7e0e1
+
+hassa@DESKTOP-U7DMQ19 MINGW64 ~
+$ docker ps
+CONTAINER ID   IMAGE                    COMMAND                  CREATED          STATUS          PORTS                               NAMES
+dd0b8c210635   ubuntu                   "bash"                   11 seconds ago   Up 10 seconds                                       upbeat_gates
+4f4ac2eb657e   docker/getting-started   "/docker-entrypoint.…"   6 minutes ago    Up 6 minutes    0.0.0.0:80->80/tcp, :::80->80/tcp   competent_sutherland
+
+hassa@DESKTOP-U7DMQ19 MINGW64 ~
+$ docker rm upbeat_gates
+Error response from daemon: You cannot remove a running container dd0b8c210635a9c2afd4a0eb55166ffe164beb1a737325685747a7fbf8c7e0e1. Stop the container before attempting removal or force remove
+
+hassa@DESKTOP-U7DMQ19 MINGW64 ~
+$ docker rm -f upbeat_gates
+upbeat_gates
