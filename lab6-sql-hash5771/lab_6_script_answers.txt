@@ -1,0 +1,130 @@
+Name: Hassan Shahzad
+
+###Answer Scripts
+
+
+##SECTION 3
+
+#3.1 :Write an SQL Script to create a new table to hold information on the competing universities. The table should hold the following information:
+
+  University Name (Text) (Note: University Name should be unique and set as PRIMARY KEY)
+  Date Established (Date)
+  Address (Address)
+  Student Population (Int)
+  Acceptance Rate (Decimal)
+
+>> (Your Answer here)
+
+football_db=# CREATE TABLE IF NOT EXISTS opposingUniversities(
+football_db(# uniName VARCHAR(100) PRIMARY KEY,
+football_db(# dateEST VARCHAR(8),
+football_db(# address VARCHAR(50),
+football_db(# studentPop INT,
+football_db(# acceptanceRate FLOAT);
+
+
+#3.2 Write an insert statement to add the University Information The table should hold the following information:
+
+       University Name :- CU Boulder
+       Date Established :- 1876
+       Address :- 1100 28th St, Boulder, CO 80303
+       Student Population :- 35,000
+       Acceptance Rate :- 80%
+
+>> (Your Answer here)
+
+INSERT INTO opposinguniversities(uniName, dateEST, address, studentPop, acceptanceRate)
+VALUES('CU Boulder', 18960401, '1100 28th St, Boulder, CO 80303', 35000, 80.00);
+
+##SECTION 4
+
+#4.1 Write a script to list the Football Players (name & major), organized by major in college.
+
+>>
+
+SELECT name, major FROM football_players ORDER BY major ASC;
+
+#4.2 Write a script to list all of the Football Players (name & rushing yards) who have 70 or more rushing yards.
+
+>>
+
+SELECT name, rushing_yards FROM football_players WHERE (rushing_yards >= 70);
+
+#4.3 Write a script to list all of the games played against Nebraska (show all game information).
+
+>>
+
+SELECT * FROM football_games WHERE (visitor_name = 'Nebraska');
+
+#4.4 Write a script to list all of the games CU Boulder has won.
+
+>>
+
+SELECT * FROM football_games WHERE (home_score >= visitor_score);
+
+#4.5 Write a script to list all of the games played in the Fall 2020 Season (show team name & game date).
+
+>>
+
+SELECT visitor_name, game_date FROM football_games WHERE game_date between '2020-09-01' and '2020-12-31';
+
+#4.6 Write a script to list the average number of points CU has scored in past games.
+
+>>
+
+SELECT (SUM(home_score) / CAST(count(visitor_name) AS float)) AS avg FROM football_games;
+
+#4.7 Write a script to list the majors of the Football players and calculate how many of them are in each of the majors listed. Rename the column where you calculate the majors to number_of_players.
+
+>>
+
+SELECT major, COUNT(name) AS number_of_players FROM football_players GROUP BY major;
+
+#4.8 Write a script to modify the above query in 5.6 to include only the Football players who are majoring in Computer Science.
+
+>>
+
+SELECT major, COUNT(name) AS number_of_players FROM football_players WHERE major='CSCI' GROUP BY major;
+
+
+##SECTION 5
+
+#5.1 Write a script to create a view that counts the total number of winning games.
+
+>>
+
+CREATE VIEW winning_games AS SELECT count(visitor_name) AS winning_games FROM football_games WHERE (home_score >= visitor_score);
+SELECT * FROM winning_games;
+
+#5.2 Write a script to create a view that counts the total number of games played.
+
+>>
+
+CREATE VIEW games AS SELECT count(visitor_name) games FROM football_games;
+SELECT * FROM games;
+
+
+#5.3 Write a script that uses the two views you created (from 6.1 and 6.2) to calculate the percent of wins.
+
+>>
+
+SELECT (CAST(winning_games AS float) / (SELECT CAST(games AS float) from games)) * 100 FROM winning_games;
+
+
+##SECTION 6
+
+#6.1 Write a script that will count how many games "Cedric Vega" has played in during his entire football career.
+
+>>
+
+SELECT COUNT(players) FROM football_games WHERE (SELECT id FROM football_players WHERE name = 'Cedric Vega') = ANY(players);
+
+#6.2 Write a script that will calculate the average number of rushing yards for "Cedric Vega", based on the number of games he has played.
+
+>>
+
+SELECT CAST(rushing_yards AS float) /
+(
+  SELECT COUNT(players) FROM football_games WHERE (SELECT id FROM football_players WHERE name = 'Cedric Vega') = ANY(players)
+)
+FROM football_players WHERE name='Cedric Vega';

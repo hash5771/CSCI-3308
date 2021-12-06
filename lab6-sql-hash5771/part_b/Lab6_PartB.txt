@@ -1,0 +1,55 @@
+Lab #6 Take Home
+Your Name: Hassan Shahzad
+
+---------------------------------------- Question 1 Query ---------------------------------------- 
+// City that had the most order ID's shipped to them.
+
+SELECT COUNT(order_id), ship_city
+FROM orders
+GROUP BY ship_city
+ORDER BY COUNT(order_id) DESC LIMIT 1;
+
+---------------------------------------- Question 2 Query ---------------------------------------- 
+// Find the order IDs shipped to "Graz" that have the least number of product IDs in the order. List the Names of the products in each of these orders.
+
+SELECT product_name, COUNT(*)
+FROM products Object 
+WHERE Object.product_id
+IN 
+(
+    SELECT product_id 
+    FROM order_details 
+    WHERE order_id
+    IN 
+        (
+        SELECT order_id 
+        FROM orders 
+        WHERE ship_city='Graz'
+        )
+)
+GROUP BY product_id
+ORDER BY COUNT(*);
+
+---------------------------------------- Question 3 Query ---------------------------------------- 
+// Names of the companies whose number of order IDs is greater than the average.
+
+CREATE VIEW Query AS SELECT company_name, COUNT(order_id) AS cusOrds FROM customers, orders WHERE customers.customer_id = orders.customer_id GROUP BY company_name ORDER BY COUNT(order_id) DESC;
+SELECT company_name, cusOrds FROM Query WHERE cusOrds > (SELECT AVG(cusOrds) FROM Query);
+
+---------------------------------------- Question 4 Query ---------------------------------------- 
+// The category IDs that have more than 10 products.
+
+SELECT COUNT(product_name), category_id 
+FROM products 
+GROUP BY category_id 
+HAVING COUNT(product_name) > 10 
+ORDER BY COUNT(product_name);
+
+---------------------------------------- Question 5 Query ---------------------------------------- 
+// The name of the product whose quantity sold is the most across all products.
+
+SELECT product_name, COUNT(quantity)
+FROM products, order_details
+WHERE products.product_id = order_details.product_id
+GROUP BY product_name
+ORDER BY COUNT(quantity) DESC LIMIT 3;
